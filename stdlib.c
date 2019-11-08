@@ -10,6 +10,8 @@ size_t strlen(char *str) {
     return i;
 }
 
+// TODO: figure out how to use these form libgcc
+// otherwise optimise them
 void *memcpy(void *dest, void *src, size_t len) {
     for (size_t i = 0; i < len; i++) {
         ((uint8_t *) dest)[i] = ((uint8_t *) src)[i];

@@ -6,7 +6,7 @@ LD = $(PREFIX)ld
 
 # -freestanding means that there are only stdbool, stddef, stdint, float, iso646, limits, stdarg available
 CFLAFS = -Wall -Wextra -pedantic -ffreestanding -O2
-LDFLAGS = -nostdlib -lgcc -ffreestanding
+LDFLAGS = -nostdlib -lgcc -ffreestanding -nostdlib -lgcc
 
 kernel: kernel.o boot.o vga_mode.o stdlib.o
 	$(CC) -T linker.ld -o kernel.bin $(LDFLAGS) $(CLFAGS) kernel.o boot.o vga_mode.o stdlib.o
