@@ -13,7 +13,7 @@ uint8_t cur_row = 0;
 uint8_t cur_col = 0;
 
 
-void advance_rows() {
+void new_line() {
     cur_col = 0;
 
     if (cur_row == ROWS - 1) {
@@ -35,23 +35,30 @@ void advance_rows() {
     }
 }
 
-
 void write_str(char * str) {
     // could also do str[i] != '\0'
     for (size_t i = 0; i < strlen(str); i++) {
         if (str[i] == '\n') {
-            advance_rows();
+            new_line();
             continue;
         }
 
         screen[VGA_INDEX(cur_row, cur_col)] = (
-            (((FORGROUND & 0x0f) | (BACKGROUND << 4 )) << 8 | str[i])
+            COLOURED_CHAR(GL_FG, GL_BG, str[i])
         );
 
         cur_col++;
         // go back to beginning of the line
         if (cur_col >= COLUMNS) {
-            advance_rows();
+            new_line();
+        }
+    }
+}
+
+void clear_screen() {
+    for (int row = 0; row < ROWS; row++) {
+        for (int col = 0; col < COLUMNS; col++) {
+            screen[VGA_INDEX(row, col)] = BLANK_CHAR;
         }
     }
 }
