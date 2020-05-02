@@ -3,3 +3,5 @@
 *.iso
 isodir/
 gas_manual/
+build/
+
